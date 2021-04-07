@@ -6,10 +6,10 @@ import { Redirect, withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap"
 import { authUserSet } from "../../actions/auth"
-import { avatarUrlPath } from "../../utils/helpers";
+import { avatarUrlPath } from "../../utils/helpers"
 
-const Login = ({users, history, dispatch, authUser, location}) => {
-	const { from } = location.state || { from: { pathname: '/' } };
+const Login = ({ users, history, dispatch, authUser, location }) => {
+	const { from } = location.state || { from: { pathname: "/" } }
 
 	const [ user, setUser ] = useState("")
 
@@ -56,7 +56,7 @@ const Login = ({users, history, dispatch, authUser, location}) => {
 				</div>
 			),
 		}))
-		
+
 	return authUser ? (
 		<Redirect to={from} />
 	) : (
@@ -122,11 +122,12 @@ Login.propTypes = {
 	dispatch : propTypes.func.isRequired,
 	users    : propTypes.array.isRequired,
 	history  : propTypes.object.isRequired,
+	location : propTypes.object.isRequired,
 }
 
 const mapStateToProps = ({ users, authUser }) => ({
 	authUser,
-	users : Object.values(users).map(({ id, name, avatarURL }) => ({
+	users    : Object.values(users).map(({ id, name, avatarURL }) => ({
 		id,
 		name,
 		avatar : avatarUrlPath(avatarURL),

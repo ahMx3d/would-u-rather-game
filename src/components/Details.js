@@ -7,8 +7,8 @@ import Avatar from "react-avatar"
 import { avatarUrlPath } from "../utils/helpers"
 import Game from "./forms/Game"
 import Votes from "./Votes"
-import { Redirect } from "react-router"
-import { fakeRoute } from "../utils/helpers";
+import { Redirect } from "react-router-dom"
+import { fakeRoute } from "../utils/helpers"
 
 const Details = ({
 	id,
@@ -28,9 +28,7 @@ const Details = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	return Boolean(id) === false ? (
-		<Redirect to={()=>fakeRoute()} />
-	) : (
+	return (id === null)? <Redirect to={`/${fakeRoute()}`}/>:(
 		<Container className="mt-3">
 			<Row className="justify-content-center mx-5">
 				<Col md="auto">
@@ -79,21 +77,21 @@ const Details = ({
 }
 
 Details.propTypes = {
-	id           : propTypes.string.isRequired,
-	options      : propTypes.object.isRequired,
-	authorName   : propTypes.string.isRequired,
-	authUser     : propTypes.string.isRequired,
-	authorAvatar : propTypes.string.isRequired,
-	dispatch     : propTypes.func.isRequired,
-	history      : propTypes.object.isRequired,
-	isAnswered   : propTypes.bool.isRequired,
+	id           : propTypes.string,
+	options      : propTypes.object,
+	authorName   : propTypes.string,
+	authUser     : propTypes.string,
+	authorAvatar : propTypes.string,
+	dispatch     : propTypes.func,
+	history      : propTypes.object,
+	isAnswered   : propTypes.bool,
 }
 
 const mapStateToProps = ({ questions, users, authUser }, props) => {
 	const id = props.match.params.id,
 		qIds = Object.keys(questions)
 	if (!qIds.includes(id)) {
-		return null
+		return {id:null}
 	} else {
 		const question = questions[id],
 			user = users[question.author]

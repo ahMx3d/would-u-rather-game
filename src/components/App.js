@@ -1,6 +1,11 @@
 import React, { useEffect } from "react"
 import propTypes from "prop-types"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import {
+	BrowserRouter as Router,
+	Redirect,
+	Route,
+	Switch,
+} from "react-router-dom"
 import ProtectedRoute from "./ProtectedRoute"
 import { connect } from "react-redux"
 import { initialDataHandle } from "../actions/shared"
@@ -24,16 +29,16 @@ const App = ({ authUser, dispatch }) => {
 	return (
 		<Router>
 			<div className="App">
-					<Navbar id={authUser} />
+				<Navbar id={authUser} />
 				<Switch>
-					<Route path="/" exact component={Login} />
+					<Redirect path="/" exact to="/home" />
 					<Route path="/login" component={Login} />
 					<ProtectedRoute path="/logout" component={Logout} />
 					<ProtectedRoute path="/questions/:id" component={Details} />
 					<ProtectedRoute path="/leaderboard" component={Board} />
 					<ProtectedRoute path="/add" component={New} />
 					<ProtectedRoute path="/home" component={Home} />
-					<Route path="*" render={()=><NotFound/>} />
+					<Route path="/*" component={NotFound} />
 				</Switch>
 			</div>
 		</Router>
