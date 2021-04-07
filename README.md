@@ -14,29 +14,64 @@ To get started the right away:
 ## Project Structure
 
 ```bash
-├── avatars
-│   ├── 1.jpg
-│   ├── 2.jpg
-│   └── 3.jpg
 ├── package.json
 ├── public
+│   ├── avatars
+│   │   ├── 1.jpg
+│   │   ├── 2.jpg
+│   │   └── 3.jpg
 │   ├── favicon.ico
 │   └── index.html
 ├── README.md
 ├── src
 │   ├── App.test.js
+│   ├── actions
+│   │   ├── auth.js
+│   │   ├── questions.js
+│   │   ├── shared.js
+│   │   └── users.js
 │   ├── components
-│   │   ├── App.css
-│   │   └── App.js
+│   │   ├── errors.css
+│   │   │    └── NotFound.js
+│   │   ├── forms
+│   │   │   ├── Game.js
+│   │   │   ├── Login.js
+│   │   │   └── New.js
+│   │   ├── App.js
+│   │   ├── Board.js
+│   │   ├── Details.js
+│   │   ├── Home.js
+│   │   ├── Logout.js
+│   │   ├── Navbar.js
+│   │   ├── ProtectedRoute.js
+│   │   ├── Question.js
+│   │   └── Votes.js
+│   ├── constants
+│   │   ├── auth.js
+│   │   ├── questions.js
+│   │   ├── shared.js
+│   │   └── users.js
+│   ├── middleware
+│   │   ├── index.js
+│   │   ├── logger.js
+│   │   └── login.js
+│   ├── reducers
+│   │   ├── auth.js
+│   │   ├── index.js
+│   │   ├── questions.js
+│   │   └── users.js
+│   ├── utils
+│   │   ├── _DATA.js
+│   │   ├── api.js
+│   │   └── helpers.js
 │   ├── index.css
 │   └── index.js
-└── utils
-    └── _DATA.js
+└── package.json
 ```
 
 ## Backend
 
-The [`_DATA.js`](utils/BooksAPI.js) file represents a fake database and methods that let you access the data.
+The [`_DATA.js`](utils/_DATA.js) file represents a fake database and methods that let you access the data.
 
 ## Data
 
@@ -133,6 +168,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Frontend Used Packages
 
--[React Router](https://reactrouter.com/web/guides/quick-start)
--[Prop Types](reactjs.org/docs/typechecking-with-proptypes.html)
--[]()
+- [React Router DOM](https://reactrouter.com/web/guides/quick-start)
+- [Prop Types](https://reactjs.org/docs/typechecking-with-proptypes.html)
+- [Bootstrap](https://getbootstrap.com/docs/4.6/getting-started/introduction/)
+- [React Avatar](https://www.npmjs.com/package/react-avatar)
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Redux](https://react-redux.js.org/)
+- [React Redux Loading](https://www.npmjs.com/package/react-redux-loading)
+- [React Select](https://react-select.com/)
+- [Redux](https://redux.js.org/)
+- [Redux Thunk](https://www.npmjs.com/package/redux-thunk)
