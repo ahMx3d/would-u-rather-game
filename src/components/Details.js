@@ -7,6 +7,8 @@ import Avatar from "react-avatar"
 import { avatarUrlPath } from "../utils/helpers"
 import Game from "./forms/Game"
 import Votes from "./Votes"
+import { Redirect } from "react-router"
+import { fakeRoute } from "../utils/helpers";
 
 const Details = ({
 	id,
@@ -25,7 +27,10 @@ const Details = ({
 		}, 500)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-	return (
+
+	return Boolean(id) === false ? (
+		<Redirect to={()=>fakeRoute()} />
+	) : (
 		<Container className="mt-3">
 			<Row className="justify-content-center mx-5">
 				<Col md="auto">
@@ -86,21 +91,26 @@ Details.propTypes = {
 
 const mapStateToProps = ({ questions, users, authUser }, props) => {
 	const id = props.match.params.id,
-		question = questions[id],
-		user = users[question.author]
-	return {
-		id,
-		authUser,
-		authorName   : user.name,
-		authorAvatar : avatarUrlPath(user.avatarURL),
-		options      : {
-			optionOne : question.optionOne,
-			optionTwo : question.optionTwo,
-		},
-		isAnswered   : [
-			...question.optionOne.votes,
-			...question.optionTwo.votes,
-		].includes(authUser),
+		qIds = Object.keys(questions)
+	if (!qIds.includes(id)) {
+		return null
+	} else {
+		const question = questions[id],
+			user = users[question.author]
+		return {
+			id,
+			authUser,
+			authorName   : user.name,
+			authorAvatar : avatarUrlPath(user.avatarURL),
+			options      : {
+				optionOne : question.optionOne,
+				optionTwo : question.optionTwo,
+			},
+			isAnswered   : [
+				...question.optionOne.votes,
+				...question.optionTwo.votes,
+			].includes(authUser),
+		}
 	}
 }
 

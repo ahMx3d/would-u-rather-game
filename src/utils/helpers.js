@@ -21,3 +21,7 @@ export const sortUsersByScore = (users) => {
 				users[a.id].questions.length),
 	)
 }
+
+export const fakeRoute = () =>
+	Math.random().toString(36).substring(2, 15) +
+	Math.random().toString(36).substring(2, 15)
