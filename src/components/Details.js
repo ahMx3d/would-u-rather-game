@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { connect } from "react-redux"
 import propTypes from "prop-types"
 import { showLoading, hideLoading } from "react-redux-loading"
-import { Container, Card, Button, Row, Col, Form } from "react-bootstrap"
+import { Container, Card, Row, Col } from "react-bootstrap"
 import Avatar from "react-avatar"
 import { avatarUrlPath } from "../utils/helpers"
-import { questionAnswerHandle } from "../actions/shared"
-import { authUserLogout } from "../actions/shared"
+import Game from "./forms/Game"
+import Votes from "./Votes"
 
-const Game = ({
+const Details = ({
 	id,
 	authorName,
 	authorAvatar,
@@ -16,8 +16,8 @@ const Game = ({
 	history,
 	options,
 	authUser,
+	isAnswered,
 }) => {
-	const [ answer, setAnswer ] = useState("")
 	useEffect(() => {
 		dispatch(showLoading())
 		setTimeout(() => {
@@ -25,26 +25,18 @@ const Game = ({
 		}, 500)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-
-	const submitHandle = (e) => {
-		e.preventDefault()
-		!answer
-			? dispatch(authUserLogout())
-			: dispatch(
-					questionAnswerHandle({
-						authedUser : authUser,
-						qid        : id,
-						answer,
-					}),
-				)
-		history.push("/home")
-	}
 	return (
 		<Container className="mt-3">
 			<Row className="justify-content-center mx-5">
 				<Col md="auto">
 					<Card className="mt-3">
-						<Card.Header>{`${authorName} Asks:`}</Card.Header>
+						<Card.Header className="font-weight-bold">
+							{!isAnswered ? (
+								`${authorName} Asks:`
+							) : (
+								`Asked by ${authorName}`
+							)}
+						</Card.Header>
 						<Card.Body>
 							<Row>
 								<Col sm={3}>
@@ -57,38 +49,20 @@ const Game = ({
 									/>
 								</Col>
 								<Col sm={9} className="border-left">
-									<h3>Would you rather ...</h3>
-									<Form onSubmit={submitHandle}>
-										{Object.entries(
-											options,
-										).map(([ value, label ]) => (
-											<div
-												key={value}
-												className="mb-3 font-weight-bold"
-											>
-												<Form.Check
-													type="radio"
-													id={value}
-													label={label}
-													name="options"
-													value={value}
-													onChange={(e) =>
-														setAnswer(
-															e.target.value,
-														)}
-												/>
-											</div>
-										))}
-										<Button
-											variant="success"
-											type="submit"
-											disabled={!answer}
-											size="lg"
-											block
-										>
-											Submit
-										</Button>
-									</Form>
+									{!isAnswered ? (
+										<Game
+											options={options}
+											history={history}
+											authUser={authUser}
+											id={id}
+											dispatch={dispatch}
+										/>
+									) : (
+										<Votes
+											options={options}
+											authUser={authUser}
+										/>
+									)}
 								</Col>
 							</Row>
 						</Card.Body>
@@ -99,7 +73,7 @@ const Game = ({
 	)
 }
 
-Game.propTypes = {
+Details.propTypes = {
 	id           : propTypes.string.isRequired,
 	options      : propTypes.object.isRequired,
 	authorName   : propTypes.string.isRequired,
@@ -107,6 +81,7 @@ Game.propTypes = {
 	authorAvatar : propTypes.string.isRequired,
 	dispatch     : propTypes.func.isRequired,
 	history      : propTypes.object.isRequired,
+	isAnswered   : propTypes.bool.isRequired,
 }
 
 const mapStateToProps = ({ questions, users, authUser }, props) => {
@@ -119,10 +94,14 @@ const mapStateToProps = ({ questions, users, authUser }, props) => {
 		authorName   : user.name,
 		authorAvatar : avatarUrlPath(user.avatarURL),
 		options      : {
-			optionOne : question.optionOne.text,
-			optionTwo : question.optionTwo.text,
+			optionOne : question.optionOne,
+			optionTwo : question.optionTwo,
 		},
+		isAnswered   : [
+			...question.optionOne.votes,
+			...question.optionTwo.votes,
+		].includes(authUser),
 	}
 }
 
-export default connect(mapStateToProps)(Game)
+export default connect(mapStateToProps)(Details)

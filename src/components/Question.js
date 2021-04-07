@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { Card, Row, Col, Button } from "react-bootstrap"
 import { withRouter } from "react-router-dom"
 import propTypes from "prop-types"
-import { avatarUrlPath } from "../utils/helpers";
+import { avatarUrlPath } from "../utils/helpers"
 
 const Question = ({
 	id,
@@ -16,7 +16,7 @@ const Question = ({
 }) => {
 	const redirectTo = (e) => {
 		e.preventDefault()
-		history.push(`answered-questions/${id}`)
+		history.push(`questions/${id}`)
 	}
 
 	return (
@@ -36,14 +36,14 @@ const Question = ({
 					<Col sm={9} className="border-left">
 						<h3>Would you rather</h3>
 						<p className="my-4">{`${optionOne} / ${optionTwo}`}</p>
-							<Button
-								variant="outline-success"
-								size="lg"
-								block
-								onClick={redirectTo}
-							>
-								View Poll
-							</Button>
+						<Button
+							variant="outline-success"
+							size="lg"
+							block
+							onClick={redirectTo}
+						>
+							View Poll
+						</Button>
 					</Col>
 				</Row>
 			</Card.Body>

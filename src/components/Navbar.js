@@ -20,13 +20,13 @@ const Navbar = ({ user }) => {
 					<BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
 					<BootstrapNavbar.Collapse id="basic-navbar-nav">
 						<Nav className="mr-auto">
-							<NavLink className="nav-link" to="/">
+							<NavLink className="nav-link" to="/home">
 								Home
 							</NavLink>
-							<NavLink className="nav-link" to="/">
+							<NavLink className="nav-link" to="/add">
 								New Question
 							</NavLink>
-							<NavLink className="nav-link" to="/">
+							<NavLink className="nav-link" to="/leaderboard">
 								Leader Board
 							</NavLink>
 						</Nav>

@@ -1,4 +1,8 @@
-import { RECEIVE_QUESTIONS, SET_ANSWER } from "../constants/questions"
+import {
+	RECEIVE_QUESTIONS,
+	SET_ANSWER,
+	SET_NEW_QUESTION,
+} from "../constants/questions"
 
 const questions = (state = {}, action) => {
 	switch (action.type) {
@@ -17,6 +21,13 @@ const questions = (state = {}, action) => {
 						...state[qid][answer],
 						votes : state[qid][answer].votes.concat([ authedUser ]),
 					},
+				},
+			}
+		case SET_NEW_QUESTION:
+			return {
+				...state,
+				[action.question.id]: {
+					...action.question,
 				},
 			}
 

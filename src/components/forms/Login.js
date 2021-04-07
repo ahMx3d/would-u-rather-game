@@ -5,8 +5,8 @@ import propTypes from "prop-types"
 import { Redirect, withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap"
-import { authUserSet } from "../actions/auth"
-import { avatarUrlPath } from "../utils/helpers";
+import { authUserSet } from "../../actions/auth"
+import { avatarUrlPath } from "../../utils/helpers";
 
 const Login = ({users, history, dispatch, authUser}) => {
 	const [ user, setUser ] = useState("")
@@ -61,7 +61,7 @@ const Login = ({users, history, dispatch, authUser}) => {
 		<Redirect to="/home" />
 	) : (
 		<Fragment>
-			<Container className="mt-3">
+			<Container className="mt-5">
 				<Row className="justify-content-center">
 					<Col md="auto">
 						<Card className="text-center mx-5">

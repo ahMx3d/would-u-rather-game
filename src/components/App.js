@@ -4,12 +4,15 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import ProtectedRoute from "./ProtectedRoute"
 import { connect } from "react-redux"
 import { initialDataHandle } from "../actions/shared"
-import Login from "./Login"
+import Login from "./forms/Login"
 import Navbar from "./Navbar"
 import Home from "./Home"
 import "./App.css"
 import Logout from "./Logout"
-import Game from "./Game"
+import Details from "./Details"
+import New from "./forms/New"
+import Board from "./Board"
+import NotFound from "./errors/NotFound"
 
 const App = ({ authUser, dispatch }) => {
 	useEffect(
@@ -27,9 +30,11 @@ const App = ({ authUser, dispatch }) => {
 					<Route path="/" exact component={Login} />
 					<Route path="/login" component={Login} />
 					<ProtectedRoute path="/logout" component={Logout} />
-					<ProtectedRoute path="/answered-questions/:id" component={Game} />
+					<ProtectedRoute path="/questions/:id" component={Details} />
+					<ProtectedRoute path="/leaderboard" component={Board} />
+					<ProtectedRoute path="/add" component={New} />
 					<ProtectedRoute path="/home" component={Home} />
-					<Route path="*" render={() => <h1>404 Not Found</h1>} />
+					<Route path="*" component={NotFound} />
 				</Switch>
 			</div>
 		</Router>
