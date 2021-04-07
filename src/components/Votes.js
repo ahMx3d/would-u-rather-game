@@ -13,7 +13,6 @@ const Votes = ({options, authUser}) => {
 		<Fragment>
 			<h3>Results:</h3>
 			{Object.entries(options)
-				.filter(([ key, { votes } ]) => votes.length)
 				.map(([ key, { text, votes } ]) => {
 					const [ votesLength, now ] = [
 						votes.length,

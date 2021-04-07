@@ -8,7 +8,9 @@ import { Container, Row, Col, Card, Button, Form } from "react-bootstrap"
 import { authUserSet } from "../../actions/auth"
 import { avatarUrlPath } from "../../utils/helpers";
 
-const Login = ({users, history, dispatch, authUser}) => {
+const Login = ({users, history, dispatch, authUser, location}) => {
+	const { from } = location.state || { from: { pathname: '/' } };
+
 	const [ user, setUser ] = useState("")
 
 	const [ primaryColor, secondaryLightColor, reduxColor ] = [
@@ -20,7 +22,7 @@ const Login = ({users, history, dispatch, authUser}) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		dispatch(authUserSet(user.value))
-		history.push('/home')
+		history.push(from)
 	}
 
 	const theme = (defaultTheme) => ({
@@ -54,11 +56,9 @@ const Login = ({users, history, dispatch, authUser}) => {
 				</div>
 			),
 		}))
-
-	
 		
 	return authUser ? (
-		<Redirect to="/home" />
+		<Redirect to={from} />
 	) : (
 		<Fragment>
 			<Container className="mt-5">

@@ -33,7 +33,7 @@ const App = ({ authUser, dispatch }) => {
 					<ProtectedRoute path="/leaderboard" component={Board} />
 					<ProtectedRoute path="/add" component={New} />
 					<ProtectedRoute path="/home" component={Home} />
-					<Route path="*" component={NotFound} />
+					<Route path="*" render={()=><NotFound/>} />
 				</Switch>
 			</div>
 		</Router>

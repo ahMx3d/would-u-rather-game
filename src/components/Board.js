@@ -55,7 +55,7 @@ const Board = ({ users }) => {
 											<Avatar
 												className="img-fluid"
 												src={avatarUrlPath(avatarURL)}
-												name="test"
+												name={name}
 												size="100%"
 												round="100%"
 											/>
